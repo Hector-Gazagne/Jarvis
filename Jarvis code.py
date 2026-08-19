@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from pathlib import Path
+import pyttsx3
 
 def retrieval(route):
     d = {}
@@ -32,4 +33,8 @@ def fetch_file(question: str, d: dict):
     return winners
 
     
-            
+def speak(text: str):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
+    
