@@ -1,0 +1,27 @@
+# --- Local config: never commit paths, keys, or anything machine-specific ---
+config.py
+config.json
+.env
+*.local
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# --- Spyder / editors ---
+.spyproject/
+.spyderproject/
+.idea/
+.vscode/
+
+# --- OS / OneDrive junk ---
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# --- Never commit vault content, in case a note is ever copied in here ---
+*.md
+!README.md
