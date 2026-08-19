@@ -18,8 +18,13 @@ def fetch_file(question: str, d: dict):
     q = question.split()
     Q = [w for w in q if w not in stopwords]
     for names, text in d.items():
-        score = sum(text.lower().count(w) for w in Q) + sum(3*names.lower().count(w) for w in Q)
-        L.append((names, score))
+        if len(text) == 0:
+            score = 0
+            L.append((names, score))
+            
+        else:
+            score = (sum(text.lower().count(w) for w in Q) + sum(3*names.lower().count(w) for w in Q)) / len(text)
+            L.append((names, score))
     best = sorted(L, key= lambda t: t[-1], reverse = True)
     winners = best[:5]
     if best[0][-1] == 0:
