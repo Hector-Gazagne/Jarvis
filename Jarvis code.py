@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 
+import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
 from pathlib import Path
 import pyttsx3
 import sounddevice as sd
 import soundfile as sf
+from faster_whisper import WhisperModel
 
-import os; print(os.getcwd())
+engine = pyttsx3.init()
+model = WhisperModel("tiny", device = "cpu", compute_type = "int8")
 
 def retrieval(route):
     d = {}
@@ -38,11 +43,20 @@ def fetch_file(question: str, d: dict):
 
     
 def speak(text: str):
-    engine = pyttsx3.init()
+    
     engine.say(text)
     engine.runAndWait()
     
-# def audiosave():
-sd.rec(5*16000, samplerate = 16000, channels = 1)
-sd.wait()
-sf.write("test.wav", sd.rec(5*16000, samplerate = 16000, channels = 1), 16000)
+def record(duration = 5):
+    audio = sd.rec(duration*16000, samplerate = 16000, channels = 1)
+    sd.wait()
+    sf.write("test.wav", audio, 16000)
+    print(audio.max(), audio.min())
+    return audio
+
+def transcribe(file):
+    segments, info = model.transcribe(file)
+    for s in segments:
+        print(s.text)
+
+
