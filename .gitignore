@@ -1,21 +1,69 @@
-# --- Audio: NEVER commit recordings. They contain Hector's voice. ---
+# =====================================================================
+#  POSTURE: block everything that isn't code or declared config.
+#  This project turns Hector's private notes and voice into text, so
+#  its OUTPUT is the sensitive thing, not just its inputs.
+#  To commit a data file deliberately:  git add -f <file>
+# =====================================================================
+
+# --- Audio: recordings contain Hector's voice ---
 *.wav
 *.mp3
 *.flac
 *.ogg
 *.m4a
+*.aac
+*.opus
+*.webm
+*.raw
 
-# --- Local config: never commit paths, keys, or anything machine-specific ---
+# --- Text-ish data: transcripts, answers, exported notes, logs ---
+# These can contain vault content or spoken input. Far more sensitive
+# than a five-second .wav.
+*.txt
+!requirements.txt
+*.json
+*.jsonl
+*.csv
+*.tsv
+*.log
+*.out
+*.xml
+*.yaml
+*.yml
+
+# --- Vault content ---
+*.md
+!README.md
+
+# --- Notebooks: they embed OUTPUTS in the file itself, so printed
+#     vault paths and note contents survive even after clearing ---
+*.ipynb
+.ipynb_checkpoints/
+
+# --- Secrets and local config ---
 config.py
 config.json
+secrets.py
+credentials.json
+keys.txt
 .env
+.envrc
+*.pem
+*.key
 *.local
 
-# --- Models: too large for git, and downloaded on demand ---
+# --- Models: large binaries, downloaded on demand, never in git ---
 *.bin
 *.gguf
 *.pt
+*.pth
+*.onnx
+*.safetensors
+*.ckpt
+*.h5
+*.tflite
 models/
+.cache/
 
 # --- Python ---
 __pycache__/
@@ -23,6 +71,8 @@ __pycache__/
 .venv/
 venv/
 *.egg-info/
+dist/
+build/
 
 # --- Spyder / editors ---
 .spyproject/
@@ -34,7 +84,3 @@ venv/
 Thumbs.db
 desktop.ini
 .DS_Store
-
-# --- Never commit vault content, in case a note is ever copied in here ---
-*.md
-!README.md
