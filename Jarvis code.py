@@ -51,12 +51,13 @@ def record(duration = 5):
     audio = sd.rec(duration*16000, samplerate = 16000, channels = 1)
     sd.wait()
     sf.write("test.wav", audio, 16000)
-    print(audio.max(), audio.min())
+    # print(audio.max(), audio.min())
     return audio
 
 def transcribe(file):
     segments, info = model.transcribe(file)
-    for s in segments:
-        print(s.text)
+    text = "".join(s.text for s in segments)
+    return text.strip()
+
 
 
