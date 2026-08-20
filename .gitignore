@@ -1,8 +1,21 @@
+# --- Audio: NEVER commit recordings. They contain Hector's voice. ---
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.m4a
+
 # --- Local config: never commit paths, keys, or anything machine-specific ---
 config.py
 config.json
 .env
 *.local
+
+# --- Models: too large for git, and downloaded on demand ---
+*.bin
+*.gguf
+*.pt
+models/
 
 # --- Python ---
 __pycache__/

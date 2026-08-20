@@ -2,6 +2,10 @@
 
 from pathlib import Path
 import pyttsx3
+import sounddevice as sd
+import soundfile as sf
+
+import os; print(os.getcwd())
 
 def retrieval(route):
     d = {}
@@ -38,3 +42,7 @@ def speak(text: str):
     engine.say(text)
     engine.runAndWait()
     
+# def audiosave():
+sd.rec(5*16000, samplerate = 16000, channels = 1)
+sd.wait()
+sf.write("test.wav", sd.rec(5*16000, samplerate = 16000, channels = 1), 16000)
