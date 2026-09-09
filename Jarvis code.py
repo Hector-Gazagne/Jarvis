@@ -9,7 +9,7 @@ import sounddevice as sd
 import soundfile as sf
 from faster_whisper import WhisperModel
 
-engine = pyttsx3.init()
+
 model = WhisperModel("tiny", device = "cpu", compute_type = "int8")
 
 
@@ -44,7 +44,7 @@ def fetch_file(question: str, d: dict):
 
     
 def speak(text: str):
-    
+    engine = pyttsx3.init()
     engine.say(text)
     engine.runAndWait()
     
@@ -69,7 +69,11 @@ def jarvis(d):
     speech = record(10).flatten()
     question = transcribe(speech)
     winners = fetch_file(question, d)
+    if not winners:
+        speak('''I don't have anything on that.''')
+        return
     speak(answer(d[winners[0][0]], question))
+    
     
     
     
