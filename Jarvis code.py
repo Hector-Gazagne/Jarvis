@@ -12,6 +12,7 @@ from faster_whisper import WhisperModel
 engine = pyttsx3.init()
 model = WhisperModel("tiny", device = "cpu", compute_type = "int8")
 
+
 def retrieval(route):
     d = {}
     folder = Path(route)
@@ -60,4 +61,15 @@ def transcribe(file):
     return text.strip()
 
 
+def answer(note_text, question):
+    return note_text[:300]
 
+
+def jarvis(d):
+    speech = record(10).flatten()
+    question = transcribe(speech)
+    winners = fetch_file(question, d)
+    speak(answer(d[winners[0][0]], question))
+    
+    
+    
